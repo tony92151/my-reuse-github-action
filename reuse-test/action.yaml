@@ -1,0 +1,28 @@
+name: Reusable Workflow for Sum
+
+on:
+  workflow_call:
+    inputs:
+      value_1:
+        description: "value 1"
+        required: true
+        type: number
+      value_2:
+        description: "value 2"
+        required: true
+        type: number
+    outputs:
+      sum:
+        description: "Sum of value 1 and value 2"
+        value: ${{ jobs.calculate_sum.outputs.result }}
+
+jobs:
+  calculate_sum:
+    runs-on: ubuntu-latest
+    outputs:
+      result: ${{ steps.compute_sum.outputs.sum }}
+    steps:
+      - id: compute_sum
+        run: |
+          echo "Calculating sum of ${{ inputs.value_1 }} and ${{ inputs.value_2 }}"
+          echo "::set-output name=sum::$((${{ inputs.value_1 }} + ${{ inputs.value_2 }}))"
