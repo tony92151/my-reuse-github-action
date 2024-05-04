@@ -25,4 +25,6 @@ jobs:
       - id: compute_sum
         run: |
           echo "Calculating sum of ${{ inputs.value_1 }} and ${{ inputs.value_2 }}"
-          echo "::set-output name=sum::$((${{ inputs.value_1 }} + ${{ inputs.value_2 }}))"
+          sum=$((${{ inputs.value_1 }} + ${{ inputs.value_2 }}))
+          echo "sum=${sum}" >> $GITHUB_OUTPUT
+
