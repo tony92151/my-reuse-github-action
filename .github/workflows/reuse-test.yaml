@@ -14,17 +14,15 @@ on:
     outputs:
       sum:
         description: "Sum of value 1 and value 2"
-        value: ${{ jobs.calculate_sum.outputs.result }}
+        value: ${{ jobs.calculate.outputs.sum }}
 
 jobs:
-  calculate_sum:
+  calculate:
     runs-on: ubuntu-latest
-    outputs:
-      result: ${{ steps.compute_sum.outputs.sum }}
     steps:
-      - id: compute_sum
+      - name: calculate_sum
+        id: calc
         run: |
           echo "Calculating sum of ${{ inputs.value_1 }} and ${{ inputs.value_2 }}"
           sum=$((${{ inputs.value_1 }} + ${{ inputs.value_2 }}))
           echo "sum=${sum}" >> $GITHUB_OUTPUT
-
